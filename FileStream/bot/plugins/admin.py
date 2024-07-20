@@ -5,7 +5,7 @@ import random
 import asyncio
 import aiofiles
 import datetime
-
+from utils_bot import *
 from FileStream.utils.broadcast_helper import send_msg
 from FileStream.utils.database import Database
 from FileStream.bot import FileStream
@@ -14,10 +14,48 @@ from FileStream.config import Telegram, Server
 from pyrogram import filters, Client
 from pyrogram.types import Message
 from pyrogram.enums.parse_mode import ParseMode
+import shutil, psutil
+from FileStream import StartTime
 
 db = Database(Telegram.DATABASE_URL, Telegram.SESSION_NAME)
 broadcast_ids = {}
 
+@FileStream.on_message(filters.regex("ping📡"))
+async def ping(b, m):
+    if m.from_user.id not in Telegram.OWNER_ID:
+        return
+    start_t = time.time()
+    ag = await m.reply_text("....")
+    end_t = time.time()
+    time_taken_s = (end_t - start_t) * 1000
+    await ag.edit(f"Pong!\n{time_taken_s:.3f} ms")
+    
+
+@FileStream.on_message(filters.private & filters.regex("jio"))
+async def stats(bot, update):
+    if update.from_user.id not in Telegram.OWNER_ID:
+        return
+    
+    currentTime = readable_time((time.time() - StartTime))
+    total, used, free = shutil.disk_usage('.')
+    total = get_readable_file_size(total)
+    used = get_readable_file_size(used)
+    free = get_readable_file_size(free)
+    sent = get_readable_file_size(psutil.net_io_counters().bytes_sent)
+    recv = get_readable_file_size(psutil.net_io_counters().bytes_recv)
+    cpuUsage = psutil.cpu_percent(interval=0.5)
+    memory = psutil.virtual_memory().percent
+    disk = psutil.disk_usage('/').percent
+    botstats = f'<b>Bot Uptime:</b> {currentTime}\n' \
+                f'<b>Total disk space:</b> {total}\n' \
+                f'<b>Used:</b> {used}  ' \
+                f'<b>Free:</b> {free}\n\n' \
+                f'📊Data Usage📊\n<b>Upload:</b> {sent}\n' \
+                f'<b>Down:</b> {recv}\n\n' \
+                f'<b>CPU:</b> {cpuUsage}% ' \
+                f'<b>RAM:</b> {memory}% ' \
+                f'<b>Disk:</b> {disk}%'
+    await update.reply_text(botstats)
 
 @FileStream.on_message(filters.command("status") & filters.private & filters.user(Telegram.OWNER_ID))
 async def sts(c: Client, m: Message):
