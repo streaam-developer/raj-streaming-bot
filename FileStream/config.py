@@ -1,7 +1,8 @@
 from os import environ as env
+
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv("config.env")
 
 class Telegram:
     API_ID = int(env.get('API_ID', '24010108'))
