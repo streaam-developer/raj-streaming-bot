@@ -22,8 +22,7 @@ broadcast_ids = {}
 
 @FileStream.on_message(filters.regex("ping📡"))
 async def ping(b, m):
-    if m.from_user.id not in Telegram.OWNER_ID:
-        return
+
     start_t = time.time()
     ag = await m.reply_text("....")
     end_t = time.time()
@@ -33,8 +32,6 @@ async def ping(b, m):
 
 @FileStream.on_message(filters.private & filters.regex("jio"))
 async def stats(bot, update):
-    if update.from_user.id not in Telegram.OWNER_ID:
-        return
     
     currentTime = readable_time((time.time() - StartTime))
     total, used, free = shutil.disk_usage('.')
