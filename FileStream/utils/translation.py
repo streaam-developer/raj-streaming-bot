@@ -25,7 +25,7 @@ class LANG(object):
 
     STREAM_TEXT = """
 <i><u>𝗬𝗼𝘂𝗿 𝗟𝗶𝗻𝗸 𝗚𝗲𝗻𝗲𝗿𝗮𝘁𝗲𝗱 !</u></i>\n
-<code>{}{}</code>\n
+<code>{}[{}]</code>\n
 <b>🔗 Sʜᴀʀᴇ :</b> <code>{}</code>\n"""
 
     STREAM_TEXT_X = """
