@@ -21,19 +21,19 @@ class Telegram:
     START_PIC = env.get('START_PIC', "https://graph.org/file/290af25276fa34fa8f0aa.jpg")
     VERIFY_PIC = env.get('VERIFY_PIC', "https://graph.org/file/736e21cc0efa4d8c2a0e4.jpg")
     MULTI_CLIENT = False
-    FLOG_CHANNEL = int(env.get("FLOG_CHANNEL", "-1002229884306"))   # Logs channel for file logs
-    ULOG_CHANNEL = int(env.get("ULOG_CHANNEL", "-1002187633229"))   # Logs channel for user logs
+    FLOG_CHANNEL = int(env.get("FLOG_CHANNEL", "-1002396030542"))   # Logs channel for file logs
+    ULOG_CHANNEL = int(env.get("ULOG_CHANNEL", "-1002396030542"))   # Logs channel for user logs
     MODE = env.get("MODE", "primary")
     SECONDARY = True if MODE.lower() == "secondary" else False
     AUTH_USERS = list(set(int(x) for x in str(env.get("AUTH_USERS", "")).split()))
 
 class Server:
-    PORT = int(env.get("PORT", "9071"))
-    BIND_ADDRESS = str(env.get("BIND_ADDRESS", "0.0.0.0"))
+    PORT = int(env.get("PORT", "4545"))
+    BIND_ADDRESS = str(env.get("BIND_ADDRESS", "185.157.213.65"))
     PING_INTERVAL = int(env.get("PING_INTERVAL", "1200"))
     HAS_SSL = str(env.get("HAS_SSL", "0").lower()) in ("1", "true", "t", "yes", "y")
     NO_PORT = str(env.get("NO_PORT", "1").lower()) in ("1", "true", "t", "yes", "y")
-    FQDN = str(env.get("FQDN", "new.streaamstore.shop"))
+    FQDN = str(env.get("FQDN", "free.streaamstore.shop"))
     URL = "http{}://{}{}/".format(
         "s" if HAS_SSL else "", FQDN, "" if NO_PORT else ":" + str(PORT)
     )
