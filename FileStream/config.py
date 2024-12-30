@@ -28,12 +28,12 @@ class Telegram:
     AUTH_USERS = list(set(int(x) for x in str(env.get("AUTH_USERS", "")).split()))
 
 class Server:
-    PORT = int(env.get("PORT", "4545"))
+    PORT = int(env.get("PORT", "9062"))
     BIND_ADDRESS = str(env.get("BIND_ADDRESS", "185.157.213.65"))
     PING_INTERVAL = int(env.get("PING_INTERVAL", "1200"))
     HAS_SSL = str(env.get("HAS_SSL", "0").lower()) in ("1", "true", "t", "yes", "y")
     NO_PORT = str(env.get("NO_PORT", "1").lower()) in ("1", "true", "t", "yes", "y")
-    FQDN = str(env.get("FQDN", "free.streaamstore.shop"))
+    FQDN = str(env.get("FQDN", "new.streaamstore.shop"))
     URL = "http{}://{}{}/".format(
         "s" if HAS_SSL else "", FQDN, "" if NO_PORT else ":" + str(PORT)
     )
